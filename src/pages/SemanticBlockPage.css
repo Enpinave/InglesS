@@ -1,0 +1,1336 @@
+/* =========================================================
+   PÁGINA DEL BLOQUE SEMÁNTICO
+========================================================= */
+
+.semantic-block-page {
+    min-height: 100vh;
+    background: #f4f7fb;
+    color: #1f2937;
+}
+
+
+/* =========================================================
+   CONTENEDOR PRINCIPAL
+========================================================= */
+
+.semantic-block-container {
+    width: min(1100px, 94%);
+    margin: 0 auto;
+    padding: 25px 0 50px;
+}
+
+
+/* =========================================================
+   BOTÓN VOLVER
+========================================================= */
+
+.back-button {
+    border: none;
+    background: transparent;
+
+    color: #174ea6;
+
+    font-size: 1rem;
+    font-weight: 600;
+
+    cursor: pointer;
+
+    padding: 8px 0;
+
+    margin-bottom: 20px;
+}
+
+.back-button:hover {
+    text-decoration: underline;
+}
+
+
+/* =========================================================
+   ENCABEZADO DEL BLOQUE
+========================================================= */
+
+.semantic-block-header {
+    background: white;
+
+    border-radius: 16px;
+
+    padding: 30px;
+
+    border: 1px solid #dfe4ea;
+
+    box-shadow:
+        0 4px 14px rgba(0, 0, 0, 0.06);
+
+    margin-bottom: 25px;
+}
+
+.block-label {
+    display: inline-block;
+
+    margin-bottom: 10px;
+
+    color: #174ea6;
+
+    font-size: 0.85rem;
+
+    font-weight: bold;
+
+    letter-spacing: 1.2px;
+}
+
+.semantic-block-header h1 {
+    margin: 0;
+
+    font-size: 2.4rem;
+
+    color: #174ea6;
+}
+
+.semantic-block-header h2 {
+    margin: 8px 0 15px;
+
+    font-size: 1.25rem;
+
+    font-weight: normal;
+
+    color: #555;
+}
+
+.semantic-block-header p {
+    max-width: 850px;
+
+    margin: 0;
+
+    line-height: 1.6;
+
+    color: #666;
+}
+
+
+/* =========================================================
+   PROGRESO
+========================================================= */
+
+.progress-section {
+    background: white;
+
+    border: 1px solid #dfe4ea;
+
+    border-radius: 14px;
+
+    padding: 22px;
+
+    margin-bottom: 25px;
+
+    box-shadow:
+        0 3px 10px rgba(0, 0, 0, 0.05);
+}
+
+.progress-header {
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: center;
+
+    margin-bottom: 12px;
+}
+
+.progress-header strong {
+    font-size: 1rem;
+}
+
+.progress-header span {
+    color: #174ea6;
+
+    font-weight: bold;
+
+    font-size: 1.1rem;
+}
+
+.progress-bar {
+    width: 100%;
+
+    height: 10px;
+
+    background: #e5e7eb;
+
+    border-radius: 20px;
+
+    overflow: hidden;
+}
+
+.progress-fill {
+    height: 100%;
+
+    background: #174ea6;
+
+    border-radius: 20px;
+
+    transition: width 0.3s ease;
+}
+
+
+/* =========================================================
+   ETAPAS
+========================================================= */
+
+.stages-section {
+    margin-bottom: 25px;
+}
+
+.stages {
+    display: grid;
+
+    grid-template-columns:
+        repeat(6, 1fr);
+
+    gap: 8px;
+}
+
+.stage {
+    min-height: 70px;
+
+    border: 1px solid #d7dce2;
+
+    border-radius: 10px;
+
+    background: white;
+
+    color: #777;
+
+    cursor: pointer;
+
+    padding: 10px 6px;
+
+    display: flex;
+
+    flex-direction: column;
+
+    justify-content: center;
+
+    align-items: center;
+
+    gap: 4px;
+
+    transition:
+        transform 0.2s,
+        background 0.2s,
+        border-color 0.2s,
+        color 0.2s;
+}
+
+.stage:hover {
+    transform: translateY(-2px);
+
+    border-color: #174ea6;
+}
+
+.stage.active {
+    background: #174ea6;
+
+    border-color: #174ea6;
+
+    color: white;
+}
+
+.stage.completed {
+    border-color: #174ea6;
+
+    color: #174ea6;
+}
+
+.stage-number {
+    font-size: 0.9rem;
+
+    font-weight: bold;
+}
+
+.stage-name {
+    font-size: 0.78rem;
+
+    font-weight: bold;
+
+    text-align: center;
+}
+
+
+/* =========================================================
+   ETAPA ACTUAL
+========================================================= */
+
+.current-stage {
+    background: white;
+
+    border-radius: 16px;
+
+    padding: 28px 30px;
+
+    border: 1px solid #dfe4ea;
+
+    box-shadow:
+        0 4px 14px rgba(0, 0, 0, 0.06);
+
+    margin-bottom: 25px;
+}
+
+.stage-label {
+    color: #174ea6;
+
+    font-size: 0.85rem;
+
+    font-weight: bold;
+
+    letter-spacing: 1px;
+}
+
+.current-stage h2 {
+    margin: 8px 0;
+
+    font-size: 1.9rem;
+}
+
+.current-stage p {
+    margin: 0;
+
+    color: #666;
+
+    line-height: 1.5;
+}
+
+/* =========================================
+   ETAPA 3 · OPCIONES DE RESPUESTA
+   ========================================= */
+
+.relation-options {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 18px;
+    margin-top: 25px;
+}
+
+.relation-answer {
+    min-height: 80px;
+    padding: 18px 25px;
+
+    border: 2px solid #d9dee7;
+    border-radius: 12px;
+
+    background: white;
+
+    font-size: 22px;
+    font-weight: 700;
+
+    color: #174ea6;
+
+    cursor: pointer;
+
+    transition:
+        transform 0.2s ease,
+        background 0.2s ease,
+        border-color 0.2s ease;
+}
+
+.relation-answer:hover {
+    border-color: #174ea6;
+    transform: translateY(-2px);
+}
+
+.relation-answer.selected {
+    border-color: #174ea6;
+    background: #eef4ff;
+    transform: scale(1.02);
+}
+
+.relation-answer:disabled {
+    cursor: default;
+    opacity: 0.8;
+}
+
+/* =========================================
+   ETAPA 5 · CONSTRUIR
+   ========================================= */
+
+.build-score {
+    margin: 20px 0;
+    padding: 12px 18px;
+
+    background: #f5f7fa;
+    border-radius: 8px;
+
+    font-size: 17px;
+    font-weight: 600;
+}
+
+
+.build-instruction {
+    margin: 25px 0;
+
+    padding: 22px;
+
+    background: #f8f9fb;
+
+    border-radius: 12px;
+
+    text-align: center;
+}
+
+
+.build-instruction span {
+    display: block;
+
+    margin-bottom: 8px;
+
+    color: #555;
+
+    font-size: 17px;
+}
+
+
+.build-instruction strong {
+    display: block;
+
+    font-size: 26px;
+
+    color: #c62828;
+}
+
+
+/* =========================================
+   EXPRESIÓN EN CONSTRUCCIÓN
+   ========================================= */
+
+.build-sentence {
+    min-height: 90px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    flex-wrap: wrap;
+
+    gap: 12px;
+
+    margin: 25px 0;
+
+    padding: 20px;
+
+    border: 2px dashed #174ea6;
+
+    border-radius: 12px;
+
+    background: white;
+}
+
+
+.build-placeholder {
+    color: #999;
+
+    font-size: 18px;
+}
+
+
+.build-word {
+    display: inline-block;
+
+    padding: 12px 18px;
+
+    border-radius: 8px;
+
+    background: #eef4ff;
+
+    color: #174ea6;
+
+    font-size: 22px;
+
+    font-weight: 700;
+}
+
+
+/* =========================================
+   OPCIONES
+   ========================================= */
+
+.build-options {
+    display: grid;
+
+    grid-template-columns:
+        repeat(3, 1fr);
+
+    gap: 16px;
+
+    margin-top: 25px;
+}
+
+
+.build-word-button {
+    min-height: 70px;
+
+    padding: 15px;
+
+    border: 2px solid #d9dee7;
+
+    border-radius: 12px;
+
+    background: white;
+
+    color: #174ea6;
+
+    font-size: 21px;
+
+    font-weight: 700;
+
+    cursor: pointer;
+
+    transition:
+        transform 0.2s ease,
+        border-color 0.2s ease,
+        background 0.2s ease;
+}
+
+
+.build-word-button:hover {
+    border-color: #174ea6;
+
+    background: #eef4ff;
+
+    transform: translateY(-2px);
+}
+
+
+.build-word-button:disabled {
+    cursor: default;
+
+    opacity: 0.65;
+}
+
+
+/* =========================================
+   RETROALIMENTACIÓN
+   ========================================= */
+
+.build-feedback {
+    margin-top: 22px;
+
+    padding: 16px;
+
+    border-radius: 10px;
+
+    text-align: center;
+
+    font-weight: 600;
+
+    font-size: 17px;
+}
+
+
+.build-feedback.correct {
+    background: #e8f5e9;
+
+    color: #2e7d32;
+}
+
+
+.build-feedback.incorrect {
+    background: #fff3e0;
+
+    color: #e65100;
+}
+
+
+.build-feedback.finished {
+    background: #e8f5e9;
+
+    color: #2e7d32;
+}
+
+
+/* =========================================
+   RESULTADO
+   ========================================= */
+
+.build-result {
+    margin-top: 25px;
+
+    padding: 25px;
+
+    text-align: center;
+
+    border-radius: 12px;
+
+    background: #f8f9fb;
+}
+
+
+.build-result h3 {
+    margin: 0 0 8px;
+
+    font-size: 28px;
+
+    color: #174ea6;
+}
+
+
+.build-result p {
+    margin: 0 0 20px;
+
+    font-size: 18px;
+}
+
+
+/* =========================================
+   SIGUIENTE EXPRESIÓN
+   ========================================= */
+
+.next-build-button {
+    padding: 14px 24px;
+
+    border: none;
+
+    border-radius: 9px;
+
+    background: #174ea6;
+
+    color: white;
+
+    font-size: 17px;
+
+    font-weight: 600;
+
+    cursor: pointer;
+}
+
+
+.next-build-button:hover {
+    background: #123d82;
+}
+
+
+/* =========================================
+   RESPONSIVE
+   ========================================= */
+
+@media (max-width: 700px) {
+
+    .build-options {
+        grid-template-columns: 1fr;
+    }
+
+    .build-word-button {
+        min-height: 65px;
+    }
+
+}
+/* =========================================
+   BOTÓN COMPROBAR
+   ========================================= */
+
+.check-relation-button {
+    display: block;
+
+    width: 100%;
+    max-width: 420px;
+
+    margin: 25px auto 0;
+
+    min-height: 58px;
+    padding: 14px 25px;
+
+    border: none;
+    border-radius: 10px;
+
+    background: #174ea6;
+    color: white;
+
+    font-size: 19px;
+    font-weight: 700;
+
+    cursor: pointer;
+
+    transition: background 0.2s ease;
+}
+
+.check-relation-button:hover {
+    background: #123d82;
+}
+
+.check-relation-button:disabled {
+    background: #9aa5b5;
+    cursor: not-allowed;
+}
+
+
+/* =========================================
+   RELACIÓN QUE SE ESTÁ TRABAJANDO
+   ========================================= */
+
+.relation-source {
+    font-size: 30px;
+    font-weight: 700;
+}
+
+.relation-type {
+    font-size: 21px;
+    font-weight: 600;
+}
+
+.relation-question-mark {
+    font-size: 34px;
+    font-weight: 700;
+}
+
+
+/* =========================================
+   PANTALLAS PEQUEÑAS
+   ========================================= */
+
+@media (max-width: 700px) {
+
+    .relation-options {
+        grid-template-columns: 1fr;
+    }
+
+    .relation-answer {
+        min-height: 70px;
+        font-size: 20px;
+    }
+
+}
+
+
+/* =========================================================
+   CONTENIDO
+========================================================= */
+
+.semantic-content {
+    background: white;
+
+    border-radius: 16px;
+
+    padding: 30px;
+
+    border: 1px solid #dfe4ea;
+
+    box-shadow:
+        0 4px 14px rgba(0, 0, 0, 0.06);
+}
+
+.activity-section h2 {
+    margin-top: 0;
+
+    font-size: 1.5rem;
+
+    color: #1f2937;
+}
+
+.activity-section > p {
+    color: #666;
+
+    line-height: 1.5;
+
+    margin-bottom: 25px;
+}
+
+
+/* =========================================================
+   VOCABULARIO
+========================================================= */
+
+.vocabulary-grid {
+    display: grid;
+
+    grid-template-columns:
+        repeat(3, 1fr);
+
+    gap: 16px;
+}
+
+.word-card {
+    background: #f8fafc;
+
+    border: 1px solid #dfe4ea;
+
+    border-radius: 12px;
+
+    padding: 22px;
+
+    text-align: center;
+
+    transition:
+        transform 0.2s,
+        box-shadow 0.2s,
+        border-color 0.2s;
+}
+
+.word-card:hover {
+    transform: translateY(-3px);
+
+    border-color: #174ea6;
+
+    box-shadow:
+        0 7px 16px rgba(0, 0, 0, 0.08);
+}
+
+.word-card h3 {
+    margin: 0 0 8px;
+
+    font-size: 1.35rem;
+
+    color: #174ea6;
+}
+
+.word-card p {
+    margin: 0 0 8px;
+
+    font-size: 1rem;
+
+    color: #333;
+}
+
+.word-card small {
+    color: #777;
+
+    font-style: italic;
+}
+
+
+/* =========================================================
+   RECONOCER
+========================================================= */
+
+.recognition-grid {
+    display: grid;
+
+    grid-template-columns:
+        repeat(3, 1fr);
+
+    gap: 14px;
+}
+
+.recognition-card {
+    min-height: 90px;
+
+    padding: 18px;
+
+    border: 1px solid #dfe4ea;
+
+    border-radius: 10px;
+
+    background: #f8fafc;
+
+    display: flex;
+
+    flex-direction: column;
+
+    justify-content: center;
+
+    align-items: center;
+
+    gap: 8px;
+}
+
+.recognition-card strong {
+    color: #174ea6;
+
+    font-size: 1.2rem;
+}
+
+.recognition-card span {
+    color: #555;
+}
+
+
+/* =========================================================
+   RELACIONES
+========================================================= */
+
+.relations-list {
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 10px;
+}
+
+.relation-card {
+    display: flex;
+
+    align-items: center;
+
+    flex-wrap: wrap;
+
+    gap: 8px;
+
+    padding: 16px 18px;
+
+    background: #f8fafc;
+
+    border-left: 4px solid #174ea6;
+
+    border-radius: 8px;
+
+    font-size: 0.95rem;
+}
+
+.relation-card strong {
+    color: #174ea6;
+}
+
+.relation-card em {
+    color: #555;
+
+    font-style: normal;
+
+    font-weight: bold;
+}
+
+
+/* =========================================================
+   ORACIONES
+========================================================= */
+
+.sentences-list {
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 12px;
+}
+
+.sentence-card {
+    padding: 18px 20px;
+
+    border: 1px solid #dfe4ea;
+
+    border-radius: 10px;
+
+    background: #f8fafc;
+}
+
+.sentence-card h3 {
+    margin: 0 0 8px;
+
+    color: #174ea6;
+
+    font-size: 1.2rem;
+}
+
+.sentence-card p {
+    margin: 0;
+
+    color: #666;
+}
+
+
+/* =========================================================
+   EXPRESIONES
+========================================================= */
+
+.expressions-grid {
+    display: grid;
+
+    grid-template-columns:
+        repeat(3, 1fr);
+
+    gap: 14px;
+}
+
+.expression-card {
+    padding: 20px;
+
+    border: 1px solid #dfe4ea;
+
+    border-radius: 10px;
+
+    background: #f8fafc;
+}
+
+.expression-card h3 {
+    margin: 0 0 8px;
+
+    color: #174ea6;
+}
+
+.expression-card p {
+    margin: 0;
+
+    color: #666;
+}
+
+
+/* =========================================================
+   COMUNICACIÓN
+========================================================= */
+
+.communication-card {
+    padding: 24px;
+
+    border: 1px solid #dfe4ea;
+
+    border-radius: 12px;
+
+    background: #f8fafc;
+}
+
+.communication-card h3 {
+    margin-top: 0;
+
+    color: #174ea6;
+
+    font-size: 1.4rem;
+}
+
+.communication-card p {
+    line-height: 1.5;
+
+    color: #555;
+}
+
+.communication-card strong {
+    color: #174ea6;
+}
+
+.communication-sentences {
+    margin-top: 20px;
+
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 8px;
+}
+
+.communication-sentences div {
+    padding: 12px 15px;
+
+    background: white;
+
+    border-left: 3px solid #174ea6;
+
+    border-radius: 6px;
+
+    font-weight: 600;
+}
+
+
+/* =========================================================
+   NAVEGACIÓN
+========================================================= */
+
+.stage-navigation {
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: center;
+
+    gap: 20px;
+
+    margin-top: 25px;
+
+    padding: 20px;
+
+    background: white;
+
+    border-radius: 14px;
+
+    border: 1px solid #dfe4ea;
+}
+
+.stage-navigation button {
+    min-width: 130px;
+
+    padding: 12px 20px;
+
+    border: 1px solid #174ea6;
+
+    border-radius: 8px;
+
+    background: white;
+
+    color: #174ea6;
+
+    font-size: 1rem;
+
+    font-weight: 600;
+
+    cursor: pointer;
+}
+
+.stage-navigation button:hover:not(:disabled) {
+    background: #174ea6;
+
+    color: white;
+}
+
+.stage-navigation button:disabled {
+    opacity: 0.4;
+
+    cursor: not-allowed;
+}
+
+.stage-navigation span {
+    font-weight: bold;
+
+    color: #666;
+}
+
+
+/* =========================================================
+   CARGANDO / ERROR
+========================================================= */
+
+.semantic-block-page h1 {
+    line-height: 1.2;
+}
+
+
+/* =========================================================
+   RESPONSIVE
+========================================================= */
+
+@media (max-width: 850px) {
+
+    .stages {
+        grid-template-columns:
+            repeat(3, 1fr);
+    }
+
+    .vocabulary-grid,
+    .recognition-grid,
+    .expressions-grid {
+        grid-template-columns:
+            repeat(2, 1fr);
+    }
+
+}
+
+
+@media (max-width: 550px) {
+
+    .semantic-block-container {
+        width: 94%;
+    }
+
+    .semantic-block-header,
+    .current-stage,
+    .semantic-content {
+        padding: 20px;
+    }
+
+    .semantic-block-header h1 {
+        font-size: 2rem;
+    }
+
+    .stages {
+        grid-template-columns:
+            repeat(2, 1fr);
+    }
+
+    .vocabulary-grid,
+    .recognition-grid,
+    .expressions-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .stage-navigation {
+        flex-direction: column;
+    }
+
+    .stage-navigation button {
+        width: 100%;
+    }
+
+}
+/* =========================================
+   ETAPA 6 · COMUNICAR
+   ========================================= */
+
+.communication-context {
+    padding: 22px;
+    background: #f8f9fb;
+    border-radius: 12px;
+    margin-bottom: 25px;
+}
+
+.communication-context h3 {
+    margin-top: 0;
+    font-size: 26px;
+    color: #174ea6;
+}
+
+.communication-context p {
+    font-size: 17px;
+    line-height: 1.6;
+}
+
+.communication-counter {
+    margin: 20px 0;
+    padding: 12px 18px;
+    background: #f5f7fa;
+    border-radius: 8px;
+    font-size: 17px;
+    font-weight: 600;
+}
+
+.communication-prompt {
+    padding: 22px;
+    background: white;
+    border: 2px solid #d9dee7;
+    border-radius: 12px;
+    text-align: center;
+}
+
+.communication-prompt span {
+    display: block;
+    margin-bottom: 8px;
+    color: #555;
+    font-size: 17px;
+}
+
+.communication-prompt strong {
+    display: block;
+    color: #c62828;
+    font-size: 25px;
+}
+
+.communication-sentence {
+    min-height: 95px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin: 25px 0;
+    padding: 20px;
+    border: 2px dashed #174ea6;
+    border-radius: 12px;
+    background: white;
+}
+
+.communication-placeholder {
+    color: #999;
+    font-size: 18px;
+}
+
+.communication-word {
+    padding: 12px 18px;
+    border-radius: 8px;
+    background: #eef4ff;
+    color: #174ea6;
+    font-size: 22px;
+    font-weight: 700;
+}
+
+.communication-options {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+    margin-top: 25px;
+}
+
+.communication-word-button {
+    min-height: 70px;
+    padding: 15px;
+    border: 2px solid #d9dee7;
+    border-radius: 12px;
+    background: white;
+    color: #174ea6;
+    font-size: 21px;
+    font-weight: 700;
+    cursor: pointer;
+    transition:
+        transform 0.2s ease,
+        border-color 0.2s ease,
+        background 0.2s ease;
+}
+
+.communication-word-button:hover {
+    border-color: #174ea6;
+    background: #eef4ff;
+    transform: translateY(-2px);
+}
+
+.communication-word-button:disabled {
+    cursor: default;
+    opacity: 0.65;
+}
+
+.communication-feedback {
+    margin-top: 22px;
+    padding: 16px;
+    border-radius: 10px;
+    text-align: center;
+    font-weight: 600;
+    font-size: 17px;
+}
+
+.communication-feedback.correct,
+.communication-feedback.finished {
+    background: #e8f5e9;
+    color: #2e7d32;
+}
+
+.communication-feedback.incorrect {
+    background: #fff3e0;
+    color: #e65100;
+}
+
+.communication-result {
+    margin-top: 25px;
+    padding: 25px;
+    text-align: center;
+    border-radius: 12px;
+    background: #f8f9fb;
+}
+
+.communication-result h3 {
+    margin: 0 0 8px;
+    font-size: 28px;
+    color: #174ea6;
+}
+
+.communication-result p {
+    margin: 0 0 20px;
+    font-size: 18px;
+}
+
+.next-communication-button {
+    padding: 14px 24px;
+    border: none;
+    border-radius: 9px;
+    background: #174ea6;
+    color: white;
+    font-size: 17px;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.next-communication-button:hover {
+    background: #123d82;
+}
+
+.communication-final-sentence {
+    margin-top: 20px;
+    padding: 18px;
+    background: white;
+    border-radius: 10px;
+    color: #174ea6;
+    font-size: 24px;
+    font-weight: 700;
+}
+
+@media (max-width: 700px) {
+
+    .communication-options {
+        grid-template-columns: 1fr;
+    }
+
+    .communication-word-button {
+        min-height: 65px;
+        font-size: 20px;
+    }
+
+}

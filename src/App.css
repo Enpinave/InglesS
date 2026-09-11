@@ -1,0 +1,221 @@
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    font-family: Arial, Helvetica, sans-serif;
+    background: #f5f7fa;
+    color: #1f2937;
+}
+
+button {
+    font-family: inherit;
+}
+
+
+/* =========================================
+   MI PIRÁMIDE
+========================================= */
+
+.pyramid-page {
+    min-height: 100vh;
+}
+
+
+/* =========================================
+   ENCABEZADO
+========================================= */
+
+.pyramid-header {
+    text-align: center;
+    padding: 35px 20px 25px;
+    background: white;
+    border-bottom: 1px solid #e5e7eb;
+}
+
+.pyramid-header h1 {
+    margin: 0 0 10px;
+    font-size: 2.4rem;
+}
+
+.pyramid-header p {
+    margin: 0;
+    font-size: 1.1rem;
+    color: #6b7280;
+}
+
+
+/* =========================================
+   CONTENEDOR
+========================================= */
+
+.pyramid-container {
+    width: min(1100px, 94%);
+    margin: 35px auto 60px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+}
+
+
+/* =========================================
+   NIVELES
+========================================= */
+
+.pyramid-level {
+    width: 100%;
+    text-align: center;
+    padding: 22px 25px;
+    border-radius: 12px;
+    background: white;
+    border: 1px solid #dbe1e8;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.06);
+}
+
+.pyramid-level h2 {
+    margin: 0 0 7px;
+    font-size: 1.25rem;
+}
+
+.pyramid-level p {
+    margin: 0;
+    color: #6b7280;
+}
+
+
+/* =========================================
+   FORMA PIRAMIDAL
+========================================= */
+
+.communication {
+    width: 45%;
+}
+
+.sentences {
+    width: 58%;
+}
+
+.expressions {
+    width: 70%;
+}
+
+.vocabulary {
+    width: 82%;
+}
+
+.semantic-blocks {
+    width: 100%;
+}
+
+
+/* =========================================
+   BLOQUES SEMÁNTICOS
+========================================= */
+
+.blocks-grid {
+    margin-top: 25px;
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(auto-fit, minmax(150px, 1fr));
+
+    gap: 14px;
+}
+
+
+.semantic-block {
+    position: relative;
+
+    min-height: 105px;
+
+    border: 2px solid #d1d5db;
+    border-radius: 12px;
+
+    padding: 18px 12px;
+
+    background: white;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    gap: 7px;
+
+    transition:
+        transform 0.2s,
+        box-shadow 0.2s,
+        border-color 0.2s;
+}
+
+
+/* =========================================
+   BLOQUE DISPONIBLE
+========================================= */
+
+.semantic-block.available {
+    cursor: pointer;
+    border-color: #174ea6;
+}
+
+.semantic-block.available:hover {
+    transform: translateY(-3px);
+
+    box-shadow:
+        0 8px 18px rgba(0, 0, 0, 0.12);
+}
+
+
+/* =========================================
+   BLOQUES BLOQUEADOS
+========================================= */
+
+.semantic-block.locked {
+    opacity: 0.55;
+    cursor: not-allowed;
+}
+
+
+/* =========================================
+   TEXTO DE BLOQUES
+========================================= */
+
+.block-name {
+    font-size: 1.15rem;
+    font-weight: bold;
+}
+
+.block-description {
+    font-size: 0.9rem;
+    color: #6b7280;
+}
+
+.block-lock {
+    position: absolute;
+    top: 8px;
+    right: 10px;
+}
+
+
+/* =========================================
+   RESPONSIVE
+========================================= */
+
+@media (max-width: 700px) {
+
+    .communication,
+    .sentences,
+    .expressions,
+    .vocabulary,
+    .semantic-blocks {
+        width: 100%;
+    }
+
+    .pyramid-header h1 {
+        font-size: 2rem;
+    }
+
+}
