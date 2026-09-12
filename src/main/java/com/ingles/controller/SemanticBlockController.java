@@ -5,8 +5,11 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.ingles.data.BodyData;
+import com.ingles.data.EducationData;
 import com.ingles.data.FamilyData;
 import com.ingles.data.HealthData;
+import com.ingles.data.ScienceData;
 import com.ingles.data.SportsData;
 import com.ingles.model.SemanticBlock;
 
@@ -40,6 +43,33 @@ public class SemanticBlockController {
 
         if ("sports".equalsIgnoreCase(blockId)) {
             return SportsData.create();
+        }
+
+
+        
+        // =========================================================
+        // Education
+        // =========================================================
+
+       if ("education".equalsIgnoreCase(blockId)) {
+            return EducationData.create();
+        }
+
+         // =========================================================
+        // Science
+        // =========================================================
+
+       if ("science".equalsIgnoreCase(blockId)) {
+            return ScienceData.create();
+        }
+
+
+        // =========================================================
+        // body
+        // =========================================================
+
+        if ("body".equalsIgnoreCase(blockId)) {
+            return BodyData.create();
         }
 
         // =========================================================

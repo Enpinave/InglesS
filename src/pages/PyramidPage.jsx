@@ -27,25 +27,26 @@ function PyramidPage() {
             id: "body",
             name: "Body",
             description: "El cuerpo",
-            available: false
+            available: true
         },
+
         {
             id: "education",
             name: "Education",
             description: "La educación",
-            available: false
+            available: true
         },
         {
             id: "shopping",
             name: "Shopping",
             description: "Las compras",
-            available: false
+            available: true
         },
         {
             id: "science",
             name: "Science",
             description: "La ciencia",
-            available: false
+            available: true
         }
     ];
 
