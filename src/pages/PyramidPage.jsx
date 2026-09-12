@@ -1,5 +1,5 @@
 import { useNavigate } from "react-router-dom";
-
+import "./PyramidPage.css";
 function PyramidPage() {
 
     const navigate = useNavigate();
@@ -15,7 +15,7 @@ function PyramidPage() {
             id: "health",
             name: "Health",
             description: "La salud",
-            available: false
+            available: true
         },
         {
             id: "sports",

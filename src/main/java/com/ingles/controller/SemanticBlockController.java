@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.ingles.data.FamilyData;
+import com.ingles.data.HealthData;
 import com.ingles.model.SemanticBlock;
 
 @RestController
@@ -16,10 +17,25 @@ public class SemanticBlockController {
     public SemanticBlock getBlock(
             @PathVariable String blockId) {
 
-        if ("family".equalsIgnoreCase(blockId)) {
+        // =========================================================
+        // FAMILY
+        // =========================================================
 
+        if ("family".equalsIgnoreCase(blockId)) {
             return FamilyData.create();
         }
+
+        // =========================================================
+        // HEALTH
+        // =========================================================
+
+        if ("health".equalsIgnoreCase(blockId)) {
+            return HealthData.create();
+        }
+
+        // =========================================================
+        // BLOQUE NO ENCONTRADO
+        // =========================================================
 
         return null;
     }
