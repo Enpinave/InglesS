@@ -21,7 +21,7 @@ function PyramidPage() {
             id: "sports",
             name: "Sports",
             description: "Los deportes",
-            available: false
+            available: true
         },
         {
             id: "body",

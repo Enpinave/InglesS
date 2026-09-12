@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.ingles.data.FamilyData;
 import com.ingles.data.HealthData;
+import com.ingles.data.SportsData;
 import com.ingles.model.SemanticBlock;
 
 @RestController
@@ -31,6 +32,14 @@ public class SemanticBlockController {
 
         if ("health".equalsIgnoreCase(blockId)) {
             return HealthData.create();
+        }
+
+        // =========================================================
+        // SPORTS
+        // =========================================================
+
+        if ("sports".equalsIgnoreCase(blockId)) {
+            return SportsData.create();
         }
 
         // =========================================================
