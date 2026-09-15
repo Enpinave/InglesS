@@ -77,6 +77,166 @@ function getSentenceWords(text = "") {
 
 
 /* ============================================================
+   TEXTO EN INGLÉS
+   ============================================================ */
+
+function getEnglishWord(word) {
+
+    if (!word) {
+        return "";
+    }
+
+    return (
+        word.english ||
+        word.word ||
+        word.term ||
+        word.text ||
+        ""
+    );
+}
+
+
+function getEnglishSentence(sentence) {
+
+    if (!sentence) {
+        return "";
+    }
+
+    return (
+        sentence.text ||
+        sentence.english ||
+        sentence.sentence ||
+        sentence.expression ||
+        ""
+    );
+}
+
+
+/* ============================================================
+   BOTÓN DE LISTENING
+   ============================================================ */
+
+function AudioButton({
+    text,
+    label = "Escuchar",
+    small = false,
+}) {
+
+    const [speaking, setSpeaking] = useState(false);
+
+
+    function handleSpeak() {
+
+        const cleanText = String(text || "").trim();
+
+        if (!cleanText) {
+            return;
+        }
+
+
+        if (
+            typeof window === "undefined" ||
+            !("speechSynthesis" in window)
+        ) {
+
+            return;
+        }
+
+
+        window.speechSynthesis.cancel();
+
+
+        const utterance =
+            new SpeechSynthesisUtterance(
+                cleanText
+            );
+
+
+        utterance.lang = "en-US";
+
+        utterance.rate = 0.85;
+
+        utterance.pitch = 1;
+
+        utterance.volume = 1;
+
+
+        /* ----------------------------------------------------
+           Intentar seleccionar una voz inglesa
+           ---------------------------------------------------- */
+
+        const voices =
+            window.speechSynthesis.getVoices();
+
+
+        const englishVoice =
+            voices.find(
+                voice =>
+                    voice.lang
+                        ?.toLowerCase()
+                        .startsWith("en")
+            );
+
+
+        if (englishVoice) {
+            utterance.voice =
+                englishVoice;
+        }
+
+
+        utterance.onstart = () => {
+            setSpeaking(true);
+        };
+
+
+        utterance.onend = () => {
+            setSpeaking(false);
+        };
+
+
+        utterance.onerror = () => {
+            setSpeaking(false);
+        };
+
+
+        window.speechSynthesis.speak(
+            utterance
+        );
+
+    }
+
+
+    return (
+
+        <button
+            type="button"
+            className={
+                small
+                    ? "audio-button audio-button-small"
+                    : "audio-button"
+            }
+            onClick={handleSpeak}
+            disabled={!text}
+            title={`Escuchar: ${text || ""}`}
+        >
+
+            <span className="audio-button-icon">
+                {speaking ? "🔊" : "🎧"}
+            </span>
+
+            <span>
+                {speaking
+                    ? "Reproduciendo..."
+                    : label}
+            </span>
+
+        </button>
+
+    );
+}
+
+
+/* ============================================================
    COMPONENTE
    ============================================================ */
 
@@ -108,40 +268,68 @@ function SemanticBlockPage() {
        ======================================================== */
 
     const [discoveredWords, setDiscoveredWords] = useState([]);
-    const [discoverCompleted, setDiscoverCompleted] = useState(false);
+    const [discoverCompleted, setDiscoverCompleted] =
+        useState(false);
 
 
     /* ========================================================
        RECONOCER
        ======================================================== */
 
-    const [recognitionIndex, setRecognitionIndex] = useState(0);
-    const [recognitionOptions, setRecognitionOptions] = useState([]);
-    const [recognitionSelected, setRecognitionSelected] = useState(null);
-    const [recognitionCorrect, setRecognitionCorrect] = useState(0);
-    const [recognitionFinished, setRecognitionFinished] = useState(false);
+    const [recognitionIndex, setRecognitionIndex] =
+        useState(0);
+
+    const [recognitionOptions, setRecognitionOptions] =
+        useState([]);
+
+    const [recognitionSelected, setRecognitionSelected] =
+        useState(null);
+
+    const [recognitionCorrect, setRecognitionCorrect] =
+        useState(0);
+
+    const [recognitionFinished, setRecognitionFinished] =
+        useState(false);
 
 
     /* ========================================================
        RELACIONAR
        ======================================================== */
 
-    const [relationIndex, setRelationIndex] = useState(0);
-    const [relationOptions, setRelationOptions] = useState([]);
-    const [relationSelected, setRelationSelected] = useState(null);
-    const [relationCorrect, setRelationCorrect] = useState(0);
-    const [relationFinished, setRelationFinished] = useState(false);
+    const [relationIndex, setRelationIndex] =
+        useState(0);
+
+    const [relationOptions, setRelationOptions] =
+        useState([]);
+
+    const [relationSelected, setRelationSelected] =
+        useState(null);
+
+    const [relationCorrect, setRelationCorrect] =
+        useState(0);
+
+    const [relationFinished, setRelationFinished] =
+        useState(false);
 
 
     /* ========================================================
        COMPRENDER
        ======================================================== */
 
-    const [understandIndex, setUnderstandIndex] = useState(0);
-    const [understandOptions, setUnderstandOptions] = useState([]);
-    const [understandSelected, setUnderstandSelected] = useState(null);
-    const [understandCorrect, setUnderstandCorrect] = useState(0);
-    const [understandFinished, setUnderstandFinished] = useState(false);
+    const [understandIndex, setUnderstandIndex] =
+        useState(0);
+
+    const [understandOptions, setUnderstandOptions] =
+        useState([]);
+
+    const [understandSelected, setUnderstandSelected] =
+        useState(null);
+
+    const [understandCorrect, setUnderstandCorrect] =
+        useState(0);
+
+    const [understandFinished, setUnderstandFinished] =
+        useState(false);
 
 
     /* ========================================================
@@ -149,26 +337,66 @@ function SemanticBlockPage() {
        ======================================================== */
 
     const [buildIndex, setBuildIndex] = useState(0);
-    const [buildWords, setBuildWords] = useState([]);
-    const [buildOptions, setBuildOptions] = useState([]);
-    const [buildFeedback, setBuildFeedback] = useState("");
-    const [buildFinished, setBuildFinished] = useState(false);
-    const [buildCorrect, setBuildCorrect] = useState(0);
+
+    const [buildWords, setBuildWords] =
+        useState([]);
+
+    const [buildOptions, setBuildOptions] =
+        useState([]);
+
+    const [buildFeedback, setBuildFeedback] =
+        useState("");
+
+    const [buildFinished, setBuildFinished] =
+        useState(false);
+
+    const [buildCorrect, setBuildCorrect] =
+        useState(0);
 
 
     /* ========================================================
        COMUNICAR
        ======================================================== */
 
-    const [communicationIndex, setCommunicationIndex] = useState(0);
-    const [communicationWords, setCommunicationWords] = useState([]);
-    const [communicationOptions, setCommunicationOptions] = useState([]);
+    const [communicationIndex, setCommunicationIndex] =
+        useState(0);
+
+    const [communicationWords, setCommunicationWords] =
+        useState([]);
+
+    const [communicationOptions, setCommunicationOptions] =
+        useState([]);
+
     const [communicationFeedback, setCommunicationFeedback] =
         useState("");
+
     const [communicationFinished, setCommunicationFinished] =
         useState(false);
+
     const [communicationCorrect, setCommunicationCorrect] =
         useState(0);
+
+
+    /* ========================================================
+       DETENER AUDIO AL SALIR DEL BLOQUE
+       ======================================================== */
+
+    useEffect(() => {
+
+        return () => {
+
+            if (
+                typeof window !== "undefined" &&
+                "speechSynthesis" in window
+            ) {
+
+                window.speechSynthesis.cancel();
+
+            }
+
+        };
+
+    }, [block]);
 
 
     /* ========================================================
@@ -179,6 +407,7 @@ function SemanticBlockPage() {
 
         let mounted = true;
 
+
         async function loadBlock() {
 
             try {
@@ -186,7 +415,9 @@ function SemanticBlockPage() {
                 setLoading(true);
                 setError("");
 
-                const data = await getSemanticBlock(block);
+                const data =
+                    await getSemanticBlock(block);
+
 
                 if (mounted) {
                     setBlockData(data);
@@ -197,10 +428,12 @@ function SemanticBlockPage() {
                 console.error(err);
 
                 if (mounted) {
+
                     setError(
                         err.message ||
                         "No se pudo cargar el bloque semántico."
                     );
+
                 }
 
             } finally {
@@ -210,11 +443,14 @@ function SemanticBlockPage() {
                 }
 
             }
+
         }
+
 
         if (block) {
             loadBlock();
         }
+
 
         return () => {
             mounted = false;
@@ -229,7 +465,9 @@ function SemanticBlockPage() {
 
     const vocabulary = useMemo(() => {
 
-        return Array.isArray(blockData?.vocabulary)
+        return Array.isArray(
+            blockData?.vocabulary
+        )
             ? blockData.vocabulary
             : [];
 
@@ -238,7 +476,9 @@ function SemanticBlockPage() {
 
     const expressions = useMemo(() => {
 
-        return Array.isArray(blockData?.expressions)
+        return Array.isArray(
+            blockData?.expressions
+        )
             ? blockData.expressions
             : [];
 
@@ -247,18 +487,29 @@ function SemanticBlockPage() {
 
     const sentences = useMemo(() => {
 
-        if (Array.isArray(blockData?.sentences)) {
+        if (
+            Array.isArray(
+                blockData?.sentences
+            )
+        ) {
+
             return blockData.sentences;
+
         }
 
         return expressions;
 
-    }, [blockData, expressions]);
+    }, [
+        blockData,
+        expressions,
+    ]);
 
 
     const relations = useMemo(() => {
 
-        return Array.isArray(blockData?.relations)
+        return Array.isArray(
+            blockData?.relations
+        )
             ? blockData.relations
             : [];
 
@@ -267,8 +518,14 @@ function SemanticBlockPage() {
 
     const communication = useMemo(() => {
 
-        if (Array.isArray(blockData?.communication)) {
+        if (
+            Array.isArray(
+                blockData?.communication
+            )
+        ) {
+
             return blockData.communication;
+
         }
 
         return [];
@@ -278,14 +535,6 @@ function SemanticBlockPage() {
 
     /* ========================================================
        RESOLVER REFERENCIAS DEL BACKEND
-
-       Convierte:
-
-       { type: "VOCABULARY", id: "health-vocab-001" }
-
-       en:
-
-       "doctor"
        ======================================================== */
 
     function resolveReference(value) {
@@ -417,6 +666,7 @@ function SemanticBlockPage() {
             relation.from ??
             relation.origin
         );
+
     }
 
 
@@ -438,6 +688,7 @@ function SemanticBlockPage() {
             relation.to ??
             relation.destination
         );
+
     }
 
 
@@ -452,9 +703,10 @@ function SemanticBlockPage() {
         }
 
         return Math.round(
-            (highestStageIndex /
-                (STAGES.length - 1)) *
-            100
+            (
+                highestStageIndex /
+                (STAGES.length - 1)
+            ) * 100
         );
 
     }, [highestStageIndex]);
@@ -466,14 +718,16 @@ function SemanticBlockPage() {
 
     function unlockNextStage() {
 
-        setHighestStageIndex(previous => {
+        setHighestStageIndex(
+            previous => {
 
-            return Math.min(
-                previous + 1,
-                STAGES.length - 1
-            );
+                return Math.min(
+                    previous + 1,
+                    STAGES.length - 1
+                );
 
-        });
+            }
+        );
 
     }
 
@@ -484,7 +738,10 @@ function SemanticBlockPage() {
 
     function changeStage(index) {
 
-        if (index > highestStageIndex) {
+        if (
+            index >
+            highestStageIndex
+        ) {
             return;
         }
 
@@ -507,12 +764,15 @@ function SemanticBlockPage() {
             return;
         }
 
+
         const currentWord =
             vocabulary[recognitionIndex];
+
 
         if (!currentWord) {
             return;
         }
+
 
         const correct =
             currentWord.spanish ||
@@ -520,28 +780,36 @@ function SemanticBlockPage() {
             currentWord.meaning ||
             "";
 
+
         const alternatives =
             vocabulary
                 .filter(
                     (_, index) =>
-                        index !== recognitionIndex
+                        index !==
+                        recognitionIndex
                 )
-                .map(word =>
-                    word.spanish ||
-                    word.translation ||
-                    word.meaning ||
-                    ""
+                .map(
+                    word =>
+                        word.spanish ||
+                        word.translation ||
+                        word.meaning ||
+                        ""
                 )
                 .filter(Boolean);
 
 
-        const options = shuffleArray([
-            correct,
-            ...shuffleArray(alternatives).slice(0, 3),
-        ]);
+        const options =
+            shuffleArray([
+                correct,
+                ...shuffleArray(
+                    alternatives
+                ).slice(0, 3),
+            ]);
 
 
-        setRecognitionOptions(options);
+        setRecognitionOptions(
+            options
+        );
 
     }, [
         stageIndex,
@@ -555,17 +823,22 @@ function SemanticBlockPage() {
        RECONOCER — RESPUESTA
        ======================================================== */
 
-    function handleRecognitionAnswer(option) {
+    function handleRecognitionAnswer(
+        option
+    ) {
 
         if (
-            recognitionSelected !== null
+            recognitionSelected !==
+            null
         ) {
             return;
         }
 
 
         const currentWord =
-            vocabulary[recognitionIndex];
+            vocabulary[
+                recognitionIndex
+            ];
 
 
         const correct =
@@ -580,13 +853,16 @@ function SemanticBlockPage() {
             normalizeText(correct);
 
 
-        setRecognitionSelected(option);
+        setRecognitionSelected(
+            option
+        );
 
 
         if (isCorrect) {
 
             setRecognitionCorrect(
-                previous => previous + 1
+                previous =>
+                    previous + 1
             );
 
         }
@@ -604,11 +880,15 @@ function SemanticBlockPage() {
                         previous + 1
                 );
 
-                setRecognitionSelected(null);
+                setRecognitionSelected(
+                    null
+                );
 
             } else {
 
-                setRecognitionFinished(true);
+                setRecognitionFinished(
+                    true
+                );
 
                 unlockNextStage();
 
@@ -635,7 +915,9 @@ function SemanticBlockPage() {
 
 
         const currentRelation =
-            relations[relationIndex];
+            relations[
+                relationIndex
+            ];
 
 
         if (!currentRelation) {
@@ -658,7 +940,8 @@ function SemanticBlockPage() {
             relations
                 .filter(
                     (_, index) =>
-                        index !== relationIndex
+                        index !==
+                        relationIndex
                 )
                 .map(
                     relation =>
@@ -670,23 +953,29 @@ function SemanticBlockPage() {
 
 
         const uniqueAlternatives =
-            [...new Set(alternatives)]
-                .filter(
-                    item =>
-                        normalizeText(item) !==
-                        normalizeText(correct)
-                );
+            [
+                ...new Set(
+                    alternatives
+                ),
+            ].filter(
+                item =>
+                    normalizeText(item) !==
+                    normalizeText(correct)
+            );
 
 
-        const options = shuffleArray([
-            correct,
-            ...shuffleArray(
-                uniqueAlternatives
-            ).slice(0, 3),
-        ]);
+        const options =
+            shuffleArray([
+                correct,
+                ...shuffleArray(
+                    uniqueAlternatives
+                ).slice(0, 3),
+            ]);
 
 
-        setRelationOptions(options);
+        setRelationOptions(
+            options
+        );
 
     }, [
         stageIndex,
@@ -703,17 +992,22 @@ function SemanticBlockPage() {
        RELACIONAR — RESPUESTA
        ======================================================== */
 
-    function handleRelationAnswer(option) {
+    function handleRelationAnswer(
+        option
+    ) {
 
         if (
-            relationSelected !== null
+            relationSelected !==
+            null
         ) {
             return;
         }
 
 
         const currentRelation =
-            relations[relationIndex];
+            relations[
+                relationIndex
+            ];
 
 
         const correct =
@@ -727,13 +1021,16 @@ function SemanticBlockPage() {
             normalizeText(correct);
 
 
-        setRelationSelected(option);
+        setRelationSelected(
+            option
+        );
 
 
         if (isCorrect) {
 
             setRelationCorrect(
-                previous => previous + 1
+                previous =>
+                    previous + 1
             );
 
         }
@@ -751,11 +1048,15 @@ function SemanticBlockPage() {
                         previous + 1
                 );
 
-                setRelationSelected(null);
+                setRelationSelected(
+                    null
+                );
 
             } else {
 
-                setRelationFinished(true);
+                setRelationFinished(
+                    true
+                );
 
                 unlockNextStage();
 
@@ -770,7 +1071,9 @@ function SemanticBlockPage() {
        COMPRENDER — OBTENER DATOS
        ======================================================== */
 
-    function getUnderstandQuestion(item) {
+    function getUnderstandQuestion(
+        item
+    ) {
 
         if (!item) {
             return "";
@@ -786,7 +1089,9 @@ function SemanticBlockPage() {
     }
 
 
-    function getUnderstandCorrectAnswer(item) {
+    function getUnderstandCorrectAnswer(
+        item
+    ) {
 
         if (!item) {
             return "";
@@ -802,20 +1107,32 @@ function SemanticBlockPage() {
     }
 
 
-    function getUnderstandOptions(item) {
+    function getUnderstandOptions(
+        item
+    ) {
 
         if (!item) {
             return [];
         }
 
-        if (Array.isArray(item.options)) {
 
-            return item.options.map(
-                option =>
-                    resolveReference(option)
-            ).filter(Boolean);
+        if (
+            Array.isArray(
+                item.options
+            )
+        ) {
+
+            return item.options
+                .map(
+                    option =>
+                        resolveReference(
+                            option
+                        )
+                )
+                .filter(Boolean);
 
         }
+
 
         return [];
 
@@ -838,7 +1155,9 @@ function SemanticBlockPage() {
 
 
         const current =
-            sentences[understandIndex];
+            sentences[
+                understandIndex
+            ];
 
 
         if (!current) {
@@ -852,10 +1171,14 @@ function SemanticBlockPage() {
             );
 
 
-        if (options.length > 0) {
+        if (
+            options.length > 0
+        ) {
 
             setUnderstandOptions(
-                shuffleArray(options)
+                shuffleArray(
+                    options
+                )
             );
 
         } else {
@@ -878,17 +1201,22 @@ function SemanticBlockPage() {
        COMPRENDER — RESPUESTA
        ======================================================== */
 
-    function handleUnderstandAnswer(option) {
+    function handleUnderstandAnswer(
+        option
+    ) {
 
         if (
-            understandSelected !== null
+            understandSelected !==
+            null
         ) {
             return;
         }
 
 
         const current =
-            sentences[understandIndex];
+            sentences[
+                understandIndex
+            ];
 
 
         const correct =
@@ -902,13 +1230,16 @@ function SemanticBlockPage() {
             normalizeText(correct);
 
 
-        setUnderstandSelected(option);
+        setUnderstandSelected(
+            option
+        );
 
 
         if (isCorrect) {
 
             setUnderstandCorrect(
-                previous => previous + 1
+                previous =>
+                    previous + 1
             );
 
         }
@@ -926,11 +1257,15 @@ function SemanticBlockPage() {
                         previous + 1
                 );
 
-                setUnderstandSelected(null);
+                setUnderstandSelected(
+                    null
+                );
 
             } else {
 
-                setUnderstandFinished(true);
+                setUnderstandFinished(
+                    true
+                );
 
                 unlockNextStage();
 
@@ -957,7 +1292,9 @@ function SemanticBlockPage() {
 
 
         const expression =
-            expressions[buildIndex];
+            expressions[
+                buildIndex
+            ];
 
 
         if (!expression) {
@@ -993,15 +1330,21 @@ function SemanticBlockPage() {
        CONSTRUIR — RESPUESTA
        ======================================================== */
 
-    function handleBuildWord(word) {
+    function handleBuildWord(
+        word
+    ) {
 
-        if (buildFeedback.startsWith("✓")) {
+        if (
+            buildFeedback.startsWith("✓")
+        ) {
             return;
         }
 
 
         const expression =
-            expressions[buildIndex];
+            expressions[
+                buildIndex
+            ];
 
 
         if (!expression) {
@@ -1022,7 +1365,9 @@ function SemanticBlockPage() {
 
 
         const expectedWord =
-            expectedWords[position];
+            expectedWords[
+                position
+            ];
 
 
         if (
@@ -1047,7 +1392,8 @@ function SemanticBlockPage() {
                     const index =
                         previous.findIndex(
                             item =>
-                                item === word
+                                item ===
+                                word
                         );
 
 
@@ -1058,7 +1404,8 @@ function SemanticBlockPage() {
 
                     return previous.filter(
                         (_, itemIndex) =>
-                            itemIndex !== index
+                            itemIndex !==
+                            index
                     );
 
                 }
@@ -1095,7 +1442,9 @@ function SemanticBlockPage() {
 
                     } else {
 
-                        setBuildFinished(true);
+                        setBuildFinished(
+                            true
+                        );
 
                         unlockNextStage();
 
@@ -1118,140 +1467,125 @@ function SemanticBlockPage() {
 
     /* ========================================================
        COMUNICAR
-       RESOLVER LAS SITUACIONES COMUNICATIVAS
-
-       El backend puede entregar:
-
-       communication: [
-           {
-               context: "...",
-               sentences: [
-                   {
-                       type: "SENTENCE",
-                       id: "health-sentence-001"
-                   }
-               ]
-           }
-       ]
-
-       La actividad necesita convertir esa referencia
-       en la oración real almacenada en "sentences".
        ======================================================== */
 
-    const communicationActivities = useMemo(() => {
+    const communicationActivities =
+        useMemo(() => {
 
-        const result = [];
-
-
-        communication.forEach((item) => {
-
-            if (!item) {
-                return;
-            }
+            const result = [];
 
 
-            const context =
-                item.context ||
-                item.description ||
-                "Situación comunicativa";
+            communication.forEach(
+                (item) => {
+
+                    if (!item) {
+                        return;
+                    }
 
 
-            /* ------------------------------------------------
-               CASO PRINCIPAL:
-               communication contiene referencias a sentences
-               ------------------------------------------------ */
-
-            if (
-                Array.isArray(item.sentences) &&
-                item.sentences.length > 0
-            ) {
-
-                item.sentences.forEach(
-                    (reference) => {
-
-                        let sentenceId = "";
+                    const context =
+                        item.context ||
+                        item.description ||
+                        "Situación comunicativa";
 
 
-                        if (
-                            typeof reference ===
-                            "object"
-                        ) {
+                    /* ----------------------------------------
+                       REFERENCIAS A SENTENCES
+                       ---------------------------------------- */
 
-                            sentenceId =
-                                reference.id ||
-                                reference.value ||
-                                reference.key ||
-                                "";
+                    if (
+                        Array.isArray(
+                            item.sentences
+                        ) &&
+                        item.sentences.length > 0
+                    ) {
 
-                        } else {
+                        item.sentences.forEach(
+                            reference => {
 
-                            sentenceId =
-                                reference;
-
-                        }
-
-
-                        const sentence =
-                            sentences.find(
-                                item =>
-                                    item?.id ===
-                                    sentenceId
-                            );
+                                let sentenceId =
+                                    "";
 
 
-                        if (sentence) {
+                                if (
+                                    typeof reference ===
+                                    "object"
+                                ) {
 
-                            result.push({
-                                context,
-                                sentence,
-                            });
+                                    sentenceId =
+                                        reference.id ||
+                                        reference.value ||
+                                        reference.key ||
+                                        "";
 
-                        }
+                                } else {
+
+                                    sentenceId =
+                                        reference;
+
+                                }
+
+
+                                const sentence =
+                                    sentences.find(
+                                        item =>
+                                            item?.id ===
+                                            sentenceId
+                                    );
+
+
+                                if (sentence) {
+
+                                    result.push({
+                                        context,
+                                        sentence,
+                                    });
+
+                                }
+
+                            }
+                        );
+
+
+                        return;
+                    }
+
+
+                    /* ----------------------------------------
+                       ORACIÓN DIRECTA
+                       ---------------------------------------- */
+
+                    const directText =
+                        item.text ||
+                        item.sentence ||
+                        item.expression ||
+                        item.english ||
+                        "";
+
+
+                    if (directText) {
+
+                        result.push({
+                            context,
+                            sentence: item,
+                        });
 
                     }
-                );
+
+                }
+            );
 
 
-                return;
-            }
+            return result;
 
-
-            /* ------------------------------------------------
-               COMPATIBILIDAD:
-               communication puede traer directamente
-               una oración.
-               ------------------------------------------------ */
-
-            const directText =
-                item.text ||
-                item.sentence ||
-                item.expression ||
-                item.english ||
-                "";
-
-
-            if (directText) {
-
-                result.push({
-                    context,
-                    sentence: item,
-                });
-
-            }
-
-        });
-
-
-        return result;
-
-    }, [
-        communication,
-        sentences,
-    ]);
+        }, [
+            communication,
+            sentences,
+        ]);
 
 
     /* ========================================================
-       COMUNICAR — PREPARAR ACTIVIDAD
+       COMUNICAR — PREPARAR
        ======================================================== */
 
     useEffect(() => {
@@ -1281,11 +1615,9 @@ function SemanticBlockPage() {
 
 
         const text =
-            sentence?.text ||
-            sentence?.english ||
-            sentence?.sentence ||
-            sentence?.expression ||
-            "";
+            getEnglishSentence(
+                sentence
+            );
 
 
         const words =
@@ -1312,10 +1644,14 @@ function SemanticBlockPage() {
        COMUNICAR — RESPONDER
        ======================================================== */
 
-    function handleCommunicationWord(word) {
+    function handleCommunicationWord(
+        word
+    ) {
 
         if (
-            communicationFeedback.startsWith("✓")
+            communicationFeedback.startsWith(
+                "✓"
+            )
         ) {
             return;
         }
@@ -1337,11 +1673,9 @@ function SemanticBlockPage() {
 
 
         const text =
-            sentence?.text ||
-            sentence?.english ||
-            sentence?.sentence ||
-            sentence?.expression ||
-            "";
+            getEnglishSentence(
+                sentence
+            );
 
 
         const expectedWords =
@@ -1353,12 +1687,10 @@ function SemanticBlockPage() {
 
 
         const expectedWord =
-            expectedWords[position];
+            expectedWords[
+                position
+            ];
 
-
-        /* ----------------------------------------------------
-           PALABRA CORRECTA
-           ---------------------------------------------------- */
 
         if (
             normalizeText(word) ===
@@ -1382,7 +1714,8 @@ function SemanticBlockPage() {
                     const index =
                         previous.findIndex(
                             item =>
-                                item === word
+                                item ===
+                                word
                         );
 
 
@@ -1393,16 +1726,13 @@ function SemanticBlockPage() {
 
                     return previous.filter(
                         (_, itemIndex) =>
-                            itemIndex !== index
+                            itemIndex !==
+                            index
                     );
 
                 }
             );
 
-
-            /* -----------------------------------------------
-               ORACIÓN COMPLETA
-               ----------------------------------------------- */
 
             if (
                 newWords.length ===
@@ -1461,6 +1791,16 @@ function SemanticBlockPage() {
 
     function handleBack() {
 
+        if (
+            typeof window !== "undefined" &&
+            "speechSynthesis" in window
+        ) {
+
+            window.speechSynthesis.cancel();
+
+        }
+
+
         navigate("/student/pyramid");
 
     }
@@ -1473,6 +1813,7 @@ function SemanticBlockPage() {
     if (loading) {
 
         return (
+
             <div className="semantic-block-page">
 
                 <div className="semantic-block-container">
@@ -1484,6 +1825,7 @@ function SemanticBlockPage() {
                 </div>
 
             </div>
+
         );
 
     }
@@ -1493,9 +1835,13 @@ function SemanticBlockPage() {
        ERROR
        ======================================================== */
 
-    if (error || !blockData) {
+    if (
+        error ||
+        !blockData
+    ) {
 
         return (
+
             <div className="semantic-block-page">
 
                 <div className="semantic-block-container">
@@ -1507,14 +1853,18 @@ function SemanticBlockPage() {
                         ← Volver a Mi Pirámide
                     </button>
 
+
                     <div className="error-message">
+
                         {error ||
                             "No se encontró el bloque semántico."}
+
                     </div>
 
                 </div>
 
             </div>
+
         );
 
     }
@@ -1576,6 +1926,23 @@ function SemanticBlockPage() {
                         {blockDescription}
                     </p>
 
+
+                    {/* =================================================
+                        INDICADOR READER + LISTENING
+                    ================================================= */}
+
+                    <div className="learning-modes">
+
+                        <span className="learning-mode active">
+                            📖 Reader
+                        </span>
+
+                        <span className="learning-mode">
+                            🎧 Listening
+                        </span>
+
+                    </div>
+
                 </header>
 
 
@@ -1596,6 +1963,7 @@ function SemanticBlockPage() {
                         </span>
 
                     </div>
+
 
                     <div className="progress-bar">
 
@@ -1621,15 +1989,20 @@ function SemanticBlockPage() {
                     <div className="stages">
 
                         {STAGES.map(
-                            (stage, index) => {
+                            (
+                                stage,
+                                index
+                            ) => {
 
                                 const locked =
                                     index >
                                     highestStageIndex;
 
+
                                 const completed =
                                     index <
                                     highestStageIndex;
+
 
                                 const active =
                                     index ===
@@ -1667,6 +2040,7 @@ function SemanticBlockPage() {
                                                 : stage.id}
 
                                         </span>
+
 
                                         <span className="stage-name">
                                             {stage.name}
@@ -1716,20 +2090,23 @@ function SemanticBlockPage() {
                             <div className="vocabulary-grid">
 
                                 {vocabulary.map(
-                                    (word, index) => {
+                                    (
+                                        word,
+                                        index
+                                    ) => {
 
                                         const english =
-                                            word?.english ||
-                                            word?.word ||
-                                            word?.term ||
-                                            word?.text ||
-                                            "";
+                                            getEnglishWord(
+                                                word
+                                            );
+
 
                                         const spanish =
                                             word?.spanish ||
                                             word?.translation ||
                                             word?.meaning ||
                                             "";
+
 
                                         const discovered =
                                             discoveredWords.includes(
@@ -1739,58 +2116,76 @@ function SemanticBlockPage() {
 
                                         return (
 
-                                            <button
+                                            <div
                                                 key={
                                                     word?.id ||
                                                     index
                                                 }
                                                 className="word-card"
-                                                onClick={() => {
-
-                                                    setDiscoveredWords(
-                                                        previous =>
-                                                            previous.includes(
-                                                                index
-                                                            )
-                                                                ? previous
-                                                                : [
-                                                                    ...previous,
-                                                                    index,
-                                                                ]
-                                                    );
-
-                                                }}
                                             >
 
-                                                <span className="word-english">
-                                                    {english}
-                                                </span>
+                                                <button
+                                                    type="button"
+                                                    className="word-card-main"
+                                                    onClick={() => {
+
+                                                        setDiscoveredWords(
+                                                            previous =>
+                                                                previous.includes(
+                                                                    index
+                                                                )
+                                                                    ? previous
+                                                                    : [
+                                                                        ...previous,
+                                                                        index,
+                                                                    ]
+                                                        );
+
+                                                    }}
+                                                >
+
+                                                    <span className="word-english">
+                                                        {english}
+                                                    </span>
 
 
-                                                {discovered && (
+                                                    {discovered && (
 
-                                                    <>
+                                                        <>
 
-                                                        <span className="word-spanish">
-                                                            {spanish}
-                                                        </span>
-
-
-                                                        {word?.pronunciation && (
-
-                                                            <span className="word-pronunciation">
-                                                                {
-                                                                    word.pronunciation
-                                                                }
+                                                            <span className="word-spanish">
+                                                                {spanish}
                                                             </span>
 
-                                                        )}
 
-                                                    </>
+                                                            {word?.pronunciation && (
 
-                                                )}
+                                                                <span className="word-pronunciation">
+                                                                    {
+                                                                        word.pronunciation
+                                                                    }
+                                                                </span>
 
-                                            </button>
+                                                            )}
+
+                                                        </>
+
+                                                    )}
+
+                                                </button>
+
+
+                                                {/* --------------------------------
+                                                    LISTENING
+                                                --------------------------------- */}
+
+                                                <AudioButton
+                                                    text={english}
+                                                    label="Escuchar"
+                                                    small
+                                                />
+
+                                            </div>
 
                                         );
 
@@ -1887,19 +2282,24 @@ function SemanticBlockPage() {
                                         <div className="recognition-word">
 
                                             {
-                                                vocabulary[
-                                                    recognitionIndex
-                                                ]?.english ||
-                                                vocabulary[
-                                                    recognitionIndex
-                                                ]?.word ||
-                                                vocabulary[
-                                                    recognitionIndex
-                                                ]?.term ||
-                                                ""
+                                                getEnglishWord(
+                                                    vocabulary[
+                                                        recognitionIndex
+                                                    ]
+                                                )
                                             }
 
                                         </div>
+
+
+                                        <AudioButton
+                                            text={getEnglishWord(
+                                                vocabulary[
+                                                    recognitionIndex
+                                                ]
+                                            )}
+                                            label="Escuchar palabra"
+                                        />
 
 
                                         <p className="relation-question">
@@ -1920,15 +2320,18 @@ function SemanticBlockPage() {
                                                             recognitionIndex
                                                         ];
 
+
                                                     const correct =
                                                         current?.spanish ||
                                                         current?.translation ||
                                                         current?.meaning ||
                                                         "";
 
+
                                                     const selected =
                                                         recognitionSelected ===
                                                         option;
+
 
                                                     const isCorrect =
                                                         normalizeText(
@@ -1999,6 +2402,7 @@ function SemanticBlockPage() {
                                         {" / "}
                                         {vocabulary.length}
                                     </p>
+
 
                                     <button
                                         className="primary-button"
@@ -2080,6 +2484,16 @@ function SemanticBlockPage() {
                                         </div>
 
 
+                                        <AudioButton
+                                            text={getRelationSource(
+                                                relations[
+                                                    relationIndex
+                                                ]
+                                            )}
+                                            label="Escuchar palabra"
+                                        />
+
+
                                         <p className="relation-question">
                                             ¿Qué palabra se relaciona
                                             con ella?
@@ -2101,9 +2515,11 @@ function SemanticBlockPage() {
                                                             ]
                                                         );
 
+
                                                     const selected =
                                                         relationSelected ===
                                                         option;
+
 
                                                     const isCorrect =
                                                         normalizeText(
@@ -2194,6 +2610,7 @@ function SemanticBlockPage() {
                                         {relations.length}
                                     </p>
 
+
                                     <button
                                         className="primary-button"
                                         onClick={() =>
@@ -2253,17 +2670,23 @@ function SemanticBlockPage() {
 
                                             <div className="sentence-english">
 
-                                                {
+                                                {getEnglishSentence(
                                                     sentences[
                                                         understandIndex
-                                                    ]?.text ||
-                                                    sentences[
-                                                        understandIndex
-                                                    ]?.english ||
-                                                    ""
-                                                }
+                                                    ]
+                                                )}
 
                                             </div>
+
+
+                                            <AudioButton
+                                                text={getEnglishSentence(
+                                                    sentences[
+                                                        understandIndex
+                                                    ]
+                                                )}
+                                                label="Escuchar oración"
+                                            />
 
 
                                             <div className="sentence-spanish">
@@ -2314,9 +2737,11 @@ function SemanticBlockPage() {
                                                                 ]
                                                             );
 
+
                                                         const selected =
                                                             understandSelected ===
                                                             option;
+
 
                                                         const isCorrect =
                                                             normalizeText(
@@ -2378,6 +2803,7 @@ function SemanticBlockPage() {
                                                         previous =>
                                                             previous + 1
                                                     );
+
 
                                                     if (
                                                         understandIndex <
@@ -2442,6 +2868,7 @@ function SemanticBlockPage() {
                                         Has comprendido las expresiones
                                         principales del bloque.
                                     </p>
+
 
                                     <button
                                         className="primary-button"
@@ -2519,6 +2946,20 @@ function SemanticBlockPage() {
                                             </span>
 
                                         </div>
+
+
+                                        {/* --------------------------------
+                                            ESCUCHAR MODELO
+                                        --------------------------------- */}
+
+                                        <AudioButton
+                                            text={getEnglishSentence(
+                                                expressions[
+                                                    buildIndex
+                                                ]
+                                            )}
+                                            label="Escuchar modelo"
+                                        />
 
 
                                         <div className="build-placeholder">
@@ -2622,6 +3063,7 @@ function SemanticBlockPage() {
                                         las expresiones del bloque.
                                     </p>
 
+
                                     <button
                                         className="primary-button next-build-button"
                                         onClick={() =>
@@ -2662,10 +3104,6 @@ function SemanticBlockPage() {
                             </p>
 
 
-                            {/* ==================================================
-                                ACTIVIDAD COMUNICATIVA
-                                ================================================== */}
-
                             {!communicationFinished &&
                                 communicationActivities.length > 0 && (
 
@@ -2702,10 +3140,6 @@ function SemanticBlockPage() {
                                         </div>
 
 
-                                        {/* ------------------------------------------
-                                            TRADUCCIÓN / SITUACIÓN EN ESPAÑOL
-                                            ------------------------------------------ */}
-
                                         <div className="communication-sentence">
 
                                             {
@@ -2721,9 +3155,19 @@ function SemanticBlockPage() {
                                         </div>
 
 
-                                        {/* ------------------------------------------
-                                            ORACIÓN QUE EL ESTUDIANTE CONSTRUYE
-                                            ------------------------------------------ */}
+                                        {/* --------------------------------
+                                            ESCUCHAR ORACIÓN
+                                        --------------------------------- */}
+
+                                        <AudioButton
+                                            text={getEnglishSentence(
+                                                communicationActivities[
+                                                    communicationIndex
+                                                ]?.sentence
+                                            )}
+                                            label="Escuchar oración"
+                                        />
+
 
                                         <div className="communication-placeholder">
 
@@ -2749,10 +3193,6 @@ function SemanticBlockPage() {
 
                                         </div>
 
-
-                                        {/* ------------------------------------------
-                                            PALABRAS DISPONIBLES
-                                            ------------------------------------------ */}
 
                                         <div className="communication-options">
 
@@ -2782,10 +3222,6 @@ function SemanticBlockPage() {
                                         </div>
 
 
-                                        {/* ------------------------------------------
-                                            RETROALIMENTACIÓN
-                                            ------------------------------------------ */}
-
                                         {communicationFeedback && (
 
                                             <div
@@ -2807,10 +3243,6 @@ function SemanticBlockPage() {
                                 )}
 
 
-                            {/* ==================================================
-                                NO HAY COMUNICACIONES
-                                ================================================== */}
-
                             {!communicationFinished &&
                                 communicationActivities.length === 0 && (
 
@@ -2829,10 +3261,6 @@ function SemanticBlockPage() {
 
                                 )}
 
-
-                            {/* ==================================================
-                                FINAL
-                                ================================================== */}
 
                             {communicationFinished && (
 
@@ -2860,6 +3288,7 @@ function SemanticBlockPage() {
                                             communicationActivities.length
                                         }
                                     </p>
+
 
                                     <button
                                         className="primary-button"

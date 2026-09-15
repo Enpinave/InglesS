@@ -1,57 +1,64 @@
+
 import { useNavigate } from "react-router-dom";
 import "./PyramidPage.css";
-function PyramidPage() {
 
+function PyramidPage() {
     const navigate = useNavigate();
+
+    // =========================================================
+    // BLOQUES SEMÁNTICOS
+    // =========================================================
 
     const semanticBlocks = [
         {
             id: "family",
             name: "Family",
             description: "La familia",
-            available: true
+            available: true,
         },
         {
             id: "health",
             name: "Health",
             description: "La salud",
-            available: true
+            available: true,
         },
         {
             id: "sports",
             name: "Sports",
             description: "Los deportes",
-            available: true
+            available: true,
         },
         {
             id: "body",
             name: "Body",
             description: "El cuerpo",
-            available: true
+            available: true,
         },
-
         {
             id: "education",
             name: "Education",
             description: "La educación",
-            available: true
+            available: true,
         },
         {
             id: "shopping",
             name: "Shopping",
             description: "Las compras",
-            available: true
+            available: true,
         },
         {
             id: "science",
             name: "Science",
             description: "La ciencia",
-            available: true
-        }
+            available: true,
+        },
     ];
 
-    const openBlock = (block) => {
+    // =========================================================
+    // ABRIR BLOQUE SEMÁNTICO
+    // =========================================================
 
+    const openBlock = (block) => {
         if (!block.available) {
             return;
         }
@@ -59,26 +66,54 @@ function PyramidPage() {
         navigate(`/${block.id}`);
     };
 
+    // =========================================================
+    // ABRIR LISTENING
+    // =========================================================
+
+    const openListening = () => {
+        navigate("/student/listening");
+    };
+
+    // =========================================================
+    // RENDER
+    // =========================================================
+
     return (
         <div className="pyramid-page">
 
+            {/* =================================================
+                HEADER
+            ================================================= */}
+
             <header className="pyramid-header">
 
-                <h1>Mi Pirámide</h1>
+                <h1>
+                    Mi Pirámide
+                </h1>
 
                 <p>
-                    Construye progresivamente tu conocimiento del inglés.
+                    Construye progresivamente tu conocimiento
+                    del inglés.
                 </p>
 
             </header>
 
 
+            {/* =================================================
+                PIRÁMIDE
+            ================================================= */}
+
             <main className="pyramid-container">
 
-                {/* NIVEL 5 */}
+                {/* =================================================
+                    NIVEL 1 — COMUNICACIÓN
+                ================================================= */}
+
                 <section className="pyramid-level communication">
 
-                    <h2>COMUNICACIÓN</h2>
+                    <h2>
+                        COMUNICACIÓN
+                    </h2>
 
                     <p>
                         Utiliza el inglés para comunicarte.
@@ -87,10 +122,15 @@ function PyramidPage() {
                 </section>
 
 
-                {/* NIVEL 4 */}
+                {/* =================================================
+                    NIVEL 2 — ORACIONES
+                ================================================= */}
+
                 <section className="pyramid-level sentences">
 
-                    <h2>ORACIONES</h2>
+                    <h2>
+                        ORACIONES
+                    </h2>
 
                     <p>
                         Construye oraciones con sentido.
@@ -99,22 +139,41 @@ function PyramidPage() {
                 </section>
 
 
-                {/* NIVEL 3 */}
-                <section className="pyramid-level expressions">
+                {/* =================================================
+                    NIVEL 3 — LISTENING
+                ================================================= */}
 
-                    <h2>EXPRESIONES</h2>
+                <button
+                    type="button"
+                    className="pyramid-level listening"
+                    onClick={openListening}
+                >
+
+                    <h2>
+                        🎧 LISTENING
+                    </h2>
 
                     <p>
-                        Aprende expresiones utilizadas en contexto.
+                        Desarrolla la comprensión auditiva
+                        del inglés.
                     </p>
 
-                </section>
+                    <span className="listening-action">
+                        Escuchar →
+                    </span>
+
+                </button>
 
 
-                {/* NIVEL 2 */}
+                {/* =================================================
+                    NIVEL 4 — VOCABULARIO
+                ================================================= */}
+
                 <section className="pyramid-level vocabulary">
 
-                    <h2>VOCABULARIO</h2>
+                    <h2>
+                        VOCABULARIO
+                    </h2>
 
                     <p>
                         Aprende palabras y sus relaciones.
@@ -123,13 +182,19 @@ function PyramidPage() {
                 </section>
 
 
-                {/* BASE */}
+                {/* =================================================
+                    NIVEL 5 — BLOQUES SEMÁNTICOS
+                ================================================= */}
+
                 <section className="pyramid-level semantic-blocks">
 
-                    <h2>BLOQUES SEMÁNTICOS</h2>
+                    <h2>
+                        BLOQUES SEMÁNTICOS
+                    </h2>
 
                     <p>
-                        Explora el inglés a partir de campos de significado.
+                        Explora el inglés a partir de campos
+                        de significado.
                     </p>
 
 
@@ -139,14 +204,15 @@ function PyramidPage() {
 
                             <button
                                 key={block.id}
-                                className={
-                                    `semantic-block ${
-                                        block.available
-                                            ? "available"
-                                            : "locked"
-                                    }`
+                                type="button"
+                                className={`semantic-block ${
+                                    block.available
+                                        ? "available"
+                                        : "locked"
+                                }`}
+                                onClick={() =>
+                                    openBlock(block)
                                 }
-                                onClick={() => openBlock(block)}
                                 disabled={!block.available}
                             >
 
@@ -158,9 +224,13 @@ function PyramidPage() {
                                     {block.description}
                                 </span>
 
-                                {!block.available && (
+                                {block.available ? (
+                                    <span className="block-action">
+                                        Entrar →
+                                    </span>
+                                ) : (
                                     <span className="block-lock">
-                                        🔒
+                                        🔒 Bloqueado
                                     </span>
                                 )}
 

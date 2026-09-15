@@ -6,6 +6,7 @@
 .pyramid-page {
     min-height: 100vh;
     padding: 40px 20px 60px;
+
     background:
         radial-gradient(
             circle at top,
@@ -13,6 +14,7 @@
             #f7f9fc 45%,
             #eef2f7 100%
         );
+
     color: #1f2937;
     box-sizing: border-box;
 }
@@ -30,24 +32,33 @@
 
 .pyramid-header h1 {
     margin: 0;
+
     font-size: 2.5rem;
     font-weight: 800;
     letter-spacing: -0.5px;
+
     color: #174ea6;
 }
 
 .pyramid-header h1::before {
     content: "◆";
+
     display: inline-block;
+
     margin-right: 12px;
+
     font-size: 1.5rem;
+
     color: #c62828;
+
     transform: translateY(-3px);
 }
 
 .pyramid-header p {
     margin: 12px 0 0;
+
     font-size: 1.05rem;
+
     color: #64748b;
 }
 
@@ -59,6 +70,7 @@
 .pyramid-container {
     width: 100%;
     max-width: 1050px;
+
     margin: 0 auto;
 }
 
@@ -69,8 +81,10 @@
 
 .pyramid-level {
     position: relative;
+
     margin: 0 auto 14px;
     padding: 24px 30px;
+
     text-align: center;
 
     background: rgba(255, 255, 255, 0.94);
@@ -99,9 +113,46 @@
     max-width: 520px;
 }
 
-.expressions {
+
+/* =========================================================
+   LISTENING
+   ========================================================= */
+
+.listening {
     max-width: 650px;
+
+    background:
+        linear-gradient(
+            145deg,
+            #ffffff,
+            #f2f7ff
+        );
+
+    border-color: #cbdcf5;
 }
+
+
+/* Indicador lateral especial para Listening */
+
+.listening::before {
+    background: #c62828;
+}
+
+
+/* Pequeño símbolo de audio */
+
+.listening h2::before {
+    content: "🎧";
+
+    display: inline-block;
+
+    margin-right: 8px;
+
+    font-size: 0.95rem;
+
+    transform: translateY(-1px);
+}
+
 
 .vocabulary {
     max-width: 790px;
@@ -109,6 +160,7 @@
 
 .semantic-blocks {
     max-width: 100%;
+
     padding-bottom: 30px;
 }
 
@@ -119,15 +171,19 @@
 
 .pyramid-level h2 {
     margin: 0;
+
     font-size: 1rem;
     font-weight: 800;
     letter-spacing: 1.2px;
+
     color: #174ea6;
 }
 
 .pyramid-level p {
     margin: 8px 0 0;
+
     color: #64748b;
+
     font-size: 0.95rem;
     line-height: 1.5;
 }
@@ -139,13 +195,17 @@
 
 .pyramid-level::before {
     content: "";
+
     position: absolute;
+
     left: 0;
     top: 20px;
     bottom: 20px;
+
     width: 4px;
 
     border-radius: 0 5px 5px 0;
+
     background: #174ea6;
 }
 
@@ -160,10 +220,12 @@
 
 .blocks-grid {
     display: grid;
+
     grid-template-columns:
         repeat(4, minmax(0, 1fr));
 
     gap: 15px;
+
     margin-top: 25px;
 }
 
@@ -176,10 +238,13 @@
     position: relative;
 
     min-height: 125px;
+
     padding: 20px 15px;
 
     display: flex;
+
     flex-direction: column;
+
     align-items: center;
     justify-content: center;
 
@@ -209,6 +274,7 @@
 
 .semantic-block.available {
     border: 2px solid #174ea6;
+
     background:
         linear-gradient(
             145deg,
@@ -365,6 +431,7 @@
 
     .pyramid-header h1::before {
         font-size: 1rem;
+
         margin-right: 7px;
     }
 
@@ -374,12 +441,13 @@
 
     .pyramid-level {
         padding: 20px 18px;
+
         border-radius: 15px;
     }
 
     .communication,
     .sentences,
-    .expressions,
+    .listening,
     .vocabulary,
     .semantic-blocks {
         max-width: 100%;
@@ -394,6 +462,7 @@
 
     .semantic-block {
         min-height: 110px;
+
         padding: 15px 10px;
     }
 
@@ -420,4 +489,15 @@
     .semantic-block {
         min-height: 90px;
     }
+}
+.pyramid-level.listening {
+    width: 100%;
+    border: none;
+    font: inherit;
+    text-align: center;
+    cursor: pointer;
+}
+
+.pyramid-level.listening:hover {
+    transform: translateY(-2px);
 }
